@@ -12,6 +12,7 @@ console.log("testing counter");
  */
 //step 1 variables
 const INCREMENT = "INCREMENT",
+  INCREMENT_BY_VALUE = "INCREMENT_BY_VALUE",
   DECREMENT = "DECREMENT",
   RESET = "RESET";
 //step 2 initaial state
@@ -22,6 +23,12 @@ const initaialCountState = {
 const incrementCountState = () => {
   return {
     type: INCREMENT,
+  };
+};
+const incrementCountStateByValue = (value) => {
+  return {
+    type: INCREMENT_BY_VALUE,
+    payload: value,
   };
 };
 const decrementCountState = () => {
@@ -42,6 +49,11 @@ const counterReducer = (state = initaialCountState, action) => {
         ...state,
         count: state.count + 1,
       };
+    case INCREMENT_BY_VALUE:
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
     case DECREMENT:
       return {
         ...state,
@@ -52,6 +64,7 @@ const counterReducer = (state = initaialCountState, action) => {
         ...state,
         count: 0,
       };
+
     default:
       return state;
   }
@@ -72,3 +85,4 @@ countStore.dispatch(incrementCountState());
 countStore.dispatch(decrementCountState());
 countStore.dispatch(incrementCountState());
 countStore.dispatch(resetCountState());
+countStore.dispatch(incrementCountStateByValue(5));
